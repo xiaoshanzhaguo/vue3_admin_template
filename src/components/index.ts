@@ -8,7 +8,7 @@ export default {
   //务必叫做install方法
   install(app) {
     //注册项目全部的全局组件
-    Object.keys(allGlobalComponent).forEach(key => {
+    Object.keys(allGlobalComponent).forEach((key) => {
       //注册为全局组件
       app.component(key, allGlobalComponent[key])
     })
