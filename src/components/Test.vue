@@ -1,12 +1,7 @@
 <template>
-
- <div>测试@</div>
-
+  <div>测试@</div>
 </template>
-<script setup lang='ts'>
+<script setup lang="ts">
 import { ref, reactive } from 'vue'
-
 </script>
-<style scoped>
-
-</style>
+<style scoped></style>
