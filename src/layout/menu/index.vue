@@ -40,6 +40,7 @@ defineProps(['menuList'])
 </script>
 <script lang="ts">
 export default {
+  // 递归组件必须有名字
   name: 'Menu',
 }
 </script>
