@@ -5,11 +5,24 @@
   </el-icon>
   <!-- 左侧面包屑 -->
   <el-breadcrumb separator-icon="ArrowRight">
-    <el-breadcrumb-item>权限管理</el-breadcrumb-item>
-    <el-breadcrumb-item>用户管理</el-breadcrumb-item>
+    <!-- 面包动态展示路由名字与标题 -->
+    <el-breadcrumb-item
+      v-for="(item, index) in $route.matched"
+      :key="index"
+      v-show="item.meta.title"
+      :to="item.path"
+    >
+      <!-- 图标 -->
+      <el-icon>
+        <component :is="item.meta.icon"></component>
+      </el-icon>
+      <!-- 面包屑展示匹配路由的标题 -->
+      <span style="margin: 0px 5px">{{ item.meta.title }}</span>
+    </el-breadcrumb-item>
   </el-breadcrumb>
 </template>
 <script setup lang="ts">
+import { useRoute } from 'vue-router'
 import { ref } from 'vue'
 import useLayoutSettingStore from '@/store/modules/setting.ts'
 
@@ -21,6 +34,12 @@ let fold = ref(false) //将来用于控制菜单折叠还是打开图标切换�
 const changeIcon = () => {
   //图标进行切换
   LayoutSettingStore.fold = !LayoutSettingStore.fold
+}
+
+//获取路由对象
+let $route = useRoute()
+const handler = () => {
+  console.log($route.matched)
 }
 </script>
 <script lang="ts">
