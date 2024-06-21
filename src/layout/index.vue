@@ -1,13 +1,17 @@
 <template>
   <div class="layout_container">
     <!-- 左侧菜单 -->
-    <div class="layout_slider">
+    <div
+      class="layout_slider"
+      :class="{ fold: LayoutSettingStore.fold ? true : false }"
+    >
       <Logo></Logo>
       <!-- 展示菜单 -->
       <!-- 滚动组件 -->
       <el-scrollbar class="scrollbar">
         <!-- 菜单组件 -->
         <el-menu
+          :collapse="LayoutSettingStore.fold ? true : false"
           :default-active="$route.path"
           background-color="#001529"
           text-color="white"
@@ -18,12 +22,18 @@
       </el-scrollbar>
     </div>
     <!-- 顶部导航 -->
-    <div class="layout_tabbar">
+    <div
+      class="layout_tabbar"
+      :class="{ fold: LayoutSettingStore.fold ? true : false }"
+    >
       <!-- layout组件的顶部导航tabbar -->
       <Tabbar></Tabbar>
     </div>
     <!-- 内容展示区域 -->
-    <div class="layout_main">
+    <div
+      class="layout_main"
+      :class="{ fold: LayoutSettingStore.fold ? true : false }"
+    >
       <Main></Main>
     </div>
   </div>
@@ -41,12 +51,20 @@ import Main from './main/index.vue'
 import Tabbar from './tabbar/index.vue'
 
 //获取用户相关的小仓库
-import useUserStore from '../store/modules/user'
+import useUserStore from '@/store/modules/user'
+import useLayoutSettingStore from '@/store/modules/setting'
 let userStore = useUserStore()
+//获取layout配置仓库
+let LayoutSettingStore = useLayoutSettingStore()
 
 //获取路由对象
 let $route = useRoute()
 console.log($route)
+</script>
+<script lang="ts">
+export default {
+  name: 'Layout',
+}
 </script>
 <style scoped lang="scss">
 .layout_container {
@@ -58,6 +76,7 @@ console.log($route)
     width: $base-menu-width;
     height: 100vh;
     background: $base-menu-background;
+    transition: all 0.3s;
 
     .scrollbar {
       width: 100%;
@@ -67,6 +86,10 @@ console.log($route)
         border-right: none;
       }
     }
+
+    &.fold {
+      width: $base-menu-min-width;
+    }
   }
 
   .layout_tabbar {
@@ -75,6 +98,12 @@ console.log($route)
     height: $base-tabber-height;
     top: 0px;
     left: $base-menu-width;
+    transition: all 0.3s;
+
+    &.fold {
+      width: calc(100vw - $base-menu-min-width);
+      left: $base-menu-min-width;
+    }
   }
 
   .layout_main {
@@ -86,6 +115,12 @@ console.log($route)
     top: $base-tabber-height;
     padding: 20px;
     overflow: auto;
+    transition: all 0.3s;
+
+    &.fold {
+      width: calc(100vw - $base-menu-min-width);
+      left: $base-menu-min-width;
+    }
   }
 }
 </style>
