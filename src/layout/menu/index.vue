@@ -51,7 +51,7 @@
 <script setup lang="ts">
 //获取父组件传递过来的全部路由数组
 defineProps(['menuList'])
-import {useRouter} from 'vue-router'
+import { useRouter } from 'vue-router'
 //获取路由器对象
 let $router = useRouter()
 //点击菜单的回调
